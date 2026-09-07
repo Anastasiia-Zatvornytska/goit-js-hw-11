@@ -14,6 +14,7 @@ const form = document.querySelector(".form");
 form.addEventListener("submit", event => {
     event.preventDefault();
     const query = event.currentTarget.elements["search-text"].value.trim();
+    const input = event.currentTarget.elements["search-text"];
     if (query === "") {
   return;
 }
@@ -30,12 +31,12 @@ form.addEventListener("submit", event => {
             return;
             }
     
-    event.currentTarget.elements["search-text"].value = "";
+    input.value = "";
     createGallery(data.hits);
         })
         
     .catch(error => {
-           
+            console.log(error);
     iziToast.error({
     title: "Error",
     message: "Something went wrong. Please try again later.",
