@@ -14,6 +14,9 @@ const form = document.querySelector(".form");
 form.addEventListener("submit", event => {
     event.preventDefault();
     const query = event.currentTarget.elements["search-text"].value.trim();
+    if (query === "") {
+  return;
+}
     event.currentTarget.elements["search-text"].value = "";
 
     clearGallery();
@@ -21,7 +24,6 @@ form.addEventListener("submit", event => {
 
     getImagesByQuery(query)
         .then(data => {
-        hideLoader();
         if (data.hits.length === 0) {
             iziToast.error({
     title: "Error",
@@ -33,11 +35,13 @@ form.addEventListener("submit", event => {
         })
         
     .catch(error => {
-        hideLoader();
-        
+           
     iziToast.error({
     title: "Error",
     message: "Something went wrong. Please try again later.",
   });
-  });
+    })
+    .finally(() => {
+  hideLoader();
+});
 })
