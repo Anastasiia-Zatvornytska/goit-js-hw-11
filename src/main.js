@@ -17,8 +17,6 @@ form.addEventListener("submit", event => {
     if (query === "") {
   return;
 }
-    event.currentTarget.elements["search-text"].value = "";
-
     clearGallery();
     showLoader();
 
@@ -30,7 +28,9 @@ form.addEventListener("submit", event => {
     message: "Sorry, there are no images matching your search query. Please try again!"
             });
             return;
-    }
+            }
+    
+    event.currentTarget.elements["search-text"].value = "";
     createGallery(data.hits);
         })
         
